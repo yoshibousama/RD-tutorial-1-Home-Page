@@ -7,8 +7,8 @@
   --neutral-400: #01847f;
   --neutral-500: #07393c;
   --neutral-600: #021718;
-  --fs-400: 24px;
-  --fs-900: 64px;
+  --fs-400: clamp(1rem, calc(0.86rem + 0.71vw), 1.5rem);
+  --fs-900: clamp(1.88rem, calc(1.27rem + 3.04vw), 4rem);
   --fw-400: 400;
   --fw-900: 900;
 }
@@ -25,6 +25,9 @@ a {
 ul {
   list-style: none;
 }
+img {
+  width: 100%;
+}
 /* **********************************************DESKTOP */
 body {
   font-family: "Roboto", sans-serif;
@@ -34,14 +37,12 @@ body {
   min-height: 100vh;
   background-color: var(--secondary);
 }
-.container {
-  max-width: 1440px;
-  margin: 0 auto;
-}
 header {
   background-color: var(--primary);
-  height: 72px;
-  padding-inline: 120px;
+}
+.container {
+  width: min(80%, 1440px);
+  margin-inline: auto;
 }
 .nav__bar {
   display: flex;
@@ -56,40 +57,79 @@ header {
   display: flex;
 }
 .nav__link {
-  padding-left: 100px;
+  padding-inline: 50px;
 }
-.bg__img {
-  background: url(/images/bg-shape.svg);
+.nav__link:hover {
+  opacity: 0.7;
+}
+main {
+  background-image: url(/images/bg-shape.svg);
   background-repeat: no-repeat;
   background-position: right;
-  background-size: contain;
-  height: calc(100vh - 76px);
+  background-size: cover;
+  animation: slide 2s linear;
 }
-.grid__container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 270px;
+@keyframes slide {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
 }
-.grid__left {
-  margin: 200px 0 0 120px;
+.flex__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 200px;
 }
-.grid__left h2 {
+.flex__left h2 {
   font-size: var(--fs-900);
   font-weight: var(--fw-900);
-  margin-bottom: 24px;
+  margin-block: 220px 24px;
 }
-.grid__left p {
+.flex__left p {
   line-height: 42px;
+  margin-bottom: 32px;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-.grid__right {
-  margin-top: 115px;
+.btn {
+  padding: 9px 36px;
+  color: var(--primary);
+  border-radius: 8px;
+  background-color: var(--neutral-400);
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  transition: background-color 0.8s ease-in-out;
+}
+.btn:hover {
+  background-color: var(--neutral-600);
+}
+.flex__right {
   position: relative;
+  margin-top: 140px;
 }
-.photo__1,
+.photo__1 {
+  position: relative;
+  z-index: 10;
+}
 .photo__2 {
   position: absolute;
-  left: 45px;
-  top: 24px;
+  left: 5px;
 }
 
 /* **********************************************RESPONSIVE */
+
+@media screen and (max-width: 1024px) {
+  .flex__container {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 768px) {
+  .nav__bar {
+    flex-direction: column;
+  }
+  .nav__list {
+    margin-block: 1rem;
+  }
+}
